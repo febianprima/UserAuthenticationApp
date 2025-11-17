@@ -1,8 +1,10 @@
 import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
 
+import colors from './colors';
+
 export const hiddenHeaderNavigationOptions: NativeStackNavigationOptions = {
   contentStyle: {
-    backgroundColor: '#3D3C3A',
+    backgroundColor: colors.darkGray,
   },
   headerShown: false,
 } as const;

@@ -4,6 +4,8 @@ import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import colors from '../constants/colors';
+
 interface ICustomHeaderProps {
   title: string;
   RightIcon?: LucideIcon;
@@ -26,7 +28,7 @@ const CustomHeader = (props: ICustomHeaderProps) => {
           onPress={goBack}
           style={[styles.leftIcon, { top: iconTopPosition }]}
         >
-          <ChevronLeftCircle size={24} color="white" />
+          <ChevronLeftCircle size={24} color={colors.white} />
         </Pressable>
       )}
       <Text style={styles.title}>{title}</Text>
@@ -35,7 +37,7 @@ const CustomHeader = (props: ICustomHeaderProps) => {
           onPress={onRightIconPress}
           style={[styles.rightIcon, { top: iconTopPosition }]}
         >
-          <RightIcon size={24} color="white" />
+          <RightIcon size={24} color={colors.white} />
         </Pressable>
       )}
     </View>
@@ -44,7 +46,7 @@ const CustomHeader = (props: ICustomHeaderProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#3D3C3A',
+    backgroundColor: colors.darkGray,
     paddingHorizontal: 24,
     paddingTop: 8,
     paddingBottom: 20,
@@ -55,7 +57,7 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 20,
-    color: 'white',
+    color: colors.white,
     textAlign: 'center',
   },
   rightIcon: {

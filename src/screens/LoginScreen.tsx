@@ -1,11 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useContext } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+
 import Button from '../components/Button';
 import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import TextInputComponent from '../components/TextInput';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ContentContainer from '../components/ContentContainer';
+import colors from '../constants/colors';
 
 const LoginScreen = () => {
   const { navigate } =
@@ -37,6 +39,7 @@ const LoginScreen = () => {
         />
       </ContentContainer>
       <View style={styles.buttonsContainer}>
+        <Text style={styles.attentiveText}>Don't have an account?</Text>
         <Button onPress={handleRegister} label="Register" type="secondaryAlt" />
         <Button onPress={login} label="Login" />
       </View>
@@ -54,6 +57,10 @@ const styles = StyleSheet.create({
   },
   buttonsContainer: {
     gap: 16,
+  },
+  attentiveText: {
+    color: colors.lightGrey,
+    textAlign: 'center',
   },
 });
 

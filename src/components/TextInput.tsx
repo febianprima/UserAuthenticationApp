@@ -9,6 +9,8 @@ import {
   View,
 } from 'react-native';
 
+import colors from '../constants/colors';
+
 interface ITextInputProps {
   label: string;
   placeholder: string;
@@ -20,6 +22,7 @@ const TextInputComponent = (props: ITextInputProps) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const { label, placeholder, type = 'primary', textContentType } = props;
+  const textColor = type === 'primary' ? colors.black : colors.white;
 
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(prev => !prev);
@@ -28,11 +31,11 @@ const TextInputComponent = (props: ITextInputProps) => {
   const RightIcon = () => {
     if (isPasswordVisible) {
       return (
-        <EyeOff size={20} color={type === 'primary' ? 'black' : 'white'} />
+        <EyeOff size={20} color={textColor} />
       );
     }
 
-    return <Eye size={20} color={type === 'primary' ? 'black' : 'white'} />;
+    return <Eye size={20} color={textColor} />;
   };
 
   return (
@@ -43,9 +46,9 @@ const TextInputComponent = (props: ITextInputProps) => {
         style={styles.input}
         // onChangeText={onChangeText}
         // value={value}
-        selectionColor={type === 'primary' ? 'black' : 'white'}
-        placeholderTextColor={type === 'primary' ? 'black' : 'white'}
-        cursorColor={type === 'primary' ? 'black' : 'white'}
+        selectionColor={textColor}
+        placeholderTextColor={textColor}
+        cursorColor={textColor}
         textContentType={textContentType}
         secureTextEntry={textContentType === 'password' && !isPasswordVisible}
       />
@@ -68,17 +71,17 @@ const styles = StyleSheet.create({
     left: 12,
     fontSize: 16,
     fontWeight: '500',
-    color: '#DADBDD',
+    color: colors.lightGrey,
     paddingHorizontal: 8,
-    backgroundColor: '#3D3C3A',
+    backgroundColor: colors.darkGray,
     zIndex: 2,
   },
   input: {
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: colors.white,
     padding: 20,
     borderRadius: 16,
-    color: 'white',
+    color: colors.white,
   },
   rightIcon: {
     position: 'absolute',

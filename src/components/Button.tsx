@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
+import colors from '../constants/colors';
+
 interface IButtonProps {
   onPress: () => void;
   label: string;
@@ -29,29 +31,29 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   primaryContainer: {
-    backgroundColor: 'teal',
+    backgroundColor: colors.lightBlue,
   },
   secondaryContainer: {
     backgroundColor: 'transparent',
     borderWidth: 1,
-    borderColor: 'teal',
+    borderColor: colors.lightBlue,
     opacity: 0.6,
   },
   secondaryAltContainer: {
     backgroundColor: 'transparent',
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: colors.lightBlue,
   },
   primaryLabel: {
-    color: 'white',
+    color: 'colors.darkGray',
     fontWeight: 'bold',
   },
   secondaryLabel: {
-    color: 'teal',
+    color: colors.lightBlue,
     fontWeight: 'bold',
   },
   secondaryAltLabel: {
-    color: 'white',
+    color: colors.lightBlue,
     fontWeight: 'bold',
   },
 });
