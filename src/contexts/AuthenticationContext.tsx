@@ -15,6 +15,7 @@ export const AuthenticationContext = createContext({
   hasFinishChecked: false,
   login: () => {},
   logout: () => {},
+  register: () => {},
 });
 
 const AuthenticationProvider = ({ children }: PropsWithChildren) => {
@@ -22,6 +23,11 @@ const AuthenticationProvider = ({ children }: PropsWithChildren) => {
   const [isAuthorized, setIsAuthorized] = useState(false);
 
   const login = async () => {
+    setIsAuthorized(true);
+    setAuthenticationState('authorized');
+  };
+
+  const register = async () => {
     setIsAuthorized(true);
     setAuthenticationState('authorized');
   };
@@ -47,6 +53,7 @@ const AuthenticationProvider = ({ children }: PropsWithChildren) => {
     hasFinishChecked,
     login,
     logout,
+    register,
   };
 
   return (

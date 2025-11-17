@@ -1,17 +1,39 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useContext } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import Button from '../components/Button';
 import { AuthenticationContext } from '../contexts/AuthenticationContext';
 
 const LoginScreen = () => {
+  const { navigate } =
+    useNavigation<NavigationStack.UnauthorizedStackNavigation>();
+
   const { login } = useContext(AuthenticationContext);
+
+  const handleRegister = () => {
+    navigate('Register');
+  };
+
   return (
-    <View>
+    <View style={styles.container}>
       <Text>Login</Text>
-      <TouchableOpacity onPress={login}>
-        <Text>Login</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonsContainer}>
+        <Button onPress={handleRegister} label="Register" type="secondary" />
+        <Button onPress={login} label="Login" />
+      </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'space-between',
+    gap: 16,
+  },
+  buttonsContainer: {
+    gap: 16,
+  },
+});
 
 export default LoginScreen;
