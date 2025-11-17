@@ -4,7 +4,7 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 interface IButtonProps {
   onPress: () => void;
   label: string;
-  type?: 'primary' | 'secondary';
+  type?: 'primary' | 'secondary' | 'secondaryAlt';
 }
 
 const Button = (props: IButtonProps) => {
@@ -37,12 +37,21 @@ const styles = StyleSheet.create({
     borderColor: 'teal',
     opacity: 0.6,
   },
+  secondaryAltContainer: {
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: 'white',
+  },
   primaryLabel: {
     color: 'white',
     fontWeight: 'bold',
   },
   secondaryLabel: {
     color: 'teal',
+    fontWeight: 'bold',
+  },
+  secondaryAltLabel: {
+    color: 'white',
     fontWeight: 'bold',
   },
 });

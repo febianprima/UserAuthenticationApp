@@ -1,7 +1,10 @@
 import { createStaticNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { navigationOptions } from '../constants/navigationConstants';
+import {
+  hiddenHeaderNavigationOptions,
+  navigationOptions,
+} from '../constants/navigationConstants';
 import useIsAuthorized from '../hooks/useIsAuthorized';
 import useIsCheckingAuthentication from '../hooks/useIsCheckingAuthentication';
 import useIsUnauthorized from '../hooks/useIsUnauthorized';
@@ -25,13 +28,12 @@ const UnauthorizedStack =
     screens: {
       Login: {
         screen: LoginScreen,
-        options: navigationOptions,
       },
       Register: {
         screen: RegisterScreen,
-        options: navigationOptions,
       },
     },
+    screenOptions: hiddenHeaderNavigationOptions,
   });
 
 const RootStack =

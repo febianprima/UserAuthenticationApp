@@ -6,9 +6,9 @@ const contentStyle: NativeStackNavigationOptions['contentStyle'] = {
   paddingVertical: 32,
 } as const;
 
-const headerNavigationStyle: NativeStackNavigationOptions = {
+export const headerNavigationStyle: NativeStackNavigationOptions = {
   headerStyle: {
-    backgroundColor: 'teal',
+    backgroundColor: '#3D3C3A',
   },
   headerTintColor: 'white',
   headerBackButtonDisplayMode: 'minimal',
@@ -21,4 +21,11 @@ const headerNavigationStyle: NativeStackNavigationOptions = {
 export const navigationOptions: NativeStackNavigationOptions = {
   contentStyle,
   ...headerNavigationStyle,
+} as const;
+
+export const hiddenHeaderNavigationOptions: NativeStackNavigationOptions = {
+  contentStyle: {
+    backgroundColor: '#3D3C3A',
+  },
+  headerShown: false,
 } as const;
