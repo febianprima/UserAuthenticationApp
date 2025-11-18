@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   secondaryContainer: {
     backgroundColor: 'transparent',
     borderWidth: 1,
-    borderColor: colors.lightBlue,
+    borderColor: colors.darkGray,
     opacity: 0.6,
   },
   secondaryAltContainer: {
@@ -45,11 +45,11 @@ const styles = StyleSheet.create({
     borderColor: colors.lightBlue,
   },
   primaryLabel: {
-    color: 'colors.darkGray',
+    color: colors.darkGray,
     fontWeight: 'bold',
   },
   secondaryLabel: {
-    color: colors.lightBlue,
+    color: colors.darkGray,
     fontWeight: 'bold',
   },
   secondaryAltLabel: {

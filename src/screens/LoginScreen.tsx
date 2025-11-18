@@ -1,7 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useContext, useRef } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useContext, useRef, useState } from 'react';
+import { Modal, StyleSheet, Text, View } from 'react-native';
 
+import { UserX } from 'lucide-react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../components/Button';
 import ContentContainer from '../components/ContentContainer';
@@ -20,12 +21,20 @@ const LoginScreen = () => {
     password: '',
   });
 
+  const [showModal, setShowModal] = useState(false);
+
   const handleRegister = () => {
     navigate('Register', { emailAddress: formRef.current.emailAddress });
   };
 
-  const handleLogin = () => {
-    login(formRef.current);
+  const handleLogin = async () => {
+    try {
+      await login(formRef.current);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setShowModal(true);
+      }
+    }
   };
 
   return (
@@ -54,6 +63,20 @@ const LoginScreen = () => {
         <Button onPress={handleRegister} label="Register" type="secondaryAlt" />
         <Button onPress={handleLogin} label="Login" />
       </View>
+      <Modal visible={showModal} animationType="fade" transparent={true}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContentContainer}>
+            <UserX size={100} color={colors.error} style={styles.modalHero} />
+            <View style={styles.modalTitleContainer}>
+              <Text style={styles.modalTitle}>Invalid credentials</Text>
+              <Text style={styles.modalDescription}>
+                User not found or password is incorrect
+              </Text>
+            </View>
+            <Button onPress={() => setShowModal(false)} label="Close" type='secondary' />
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 };
@@ -72,6 +95,37 @@ const styles = StyleSheet.create({
   attentiveText: {
     color: colors.lightGrey,
     textAlign: 'center',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContentContainer: {
+    backgroundColor: colors.lightGrey,
+    padding: 24,
+    borderRadius: 16,
+    gap: 24,
+  },
+  modalTitleContainer: {
+    gap: 8,
+  },
+  modalTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: colors.darkGray,
+    textAlign: 'center',
+  },
+  modalDescription: {
+    fontSize: 16,
+    color: colors.darkGray,
+    textAlign: 'center',
+  },
+  modalButtonsContainer: {
+    gap: 16,
+  },
+  modalHero: {
+    alignSelf: 'center',
   },
 });
 

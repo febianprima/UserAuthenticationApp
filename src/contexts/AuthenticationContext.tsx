@@ -6,12 +6,12 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import users from '../constants/users.json';
 import {
   getAuthenticationState,
   setAuthenticationState,
 } from '../utils/authenticationStateHandler';
 import getUserData from '../utils/getUserData';
-import users from '../constants/users.json';
 
 export const AuthenticationContext = createContext<{
   isAuthorized: boolean;
@@ -45,7 +45,7 @@ const AuthenticationProvider = ({ children }: PropsWithChildren) => {
     const userData = getUserData(emailAddress, usersRef.current);
 
     if (!userData) {
-      return;
+      throw new Error();
     }
 
     setUser({
