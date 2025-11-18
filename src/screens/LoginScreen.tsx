@@ -21,7 +21,7 @@ const LoginScreen = () => {
   });
 
   const handleRegister = () => {
-    navigate('Register');
+    navigate('Register', { emailAddress: formRef.current.emailAddress });
   };
 
   const handleLogin = () => {

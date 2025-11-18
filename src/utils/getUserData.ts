@@ -1,6 +1,7 @@
-import users from '../constants/users.json';
-
-const getUserData = (emailAddress: string): Authentication.User | undefined => {
+const getUserData = (
+  emailAddress: string,
+  users: Authentication.User[],
+): Authentication.User | undefined => {
   const user = users.find(
     (item: Authentication.User) => item.emailAddress === emailAddress,
   );

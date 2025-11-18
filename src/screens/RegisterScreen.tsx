@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import Button from '../components/Button';
 import ContentContainer from '../components/ContentContainer';
@@ -12,11 +12,13 @@ import { AuthenticationContext } from '../contexts/AuthenticationContext';
 const RegisterScreen = () => {
   const { goBack } =
     useNavigation<NavigationStack.UnauthorizedStackNavigation>();
+  const { params } = useRoute<NavigationStack.RegisterRouteProp>();
+
   const { register } = useContext(AuthenticationContext);
 
   const formRef = useRef<Authentication.RegisterForm>({
     name: '',
-    emailAddress: '',
+    emailAddress: params?.emailAddress || '',
     password: '',
   });
 

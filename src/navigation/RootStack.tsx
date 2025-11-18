@@ -1,11 +1,8 @@
 import { createStaticNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { LogOut } from 'lucide-react-native';
-import { useContext } from 'react';
-import CustomHeader from '../components/CustomHeader';
+import HomeHeader from '../components/HomeHeader';
 import { hiddenHeaderNavigationOptions } from '../constants/navigationConstants';
-import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import useIsAuthorized from '../hooks/useIsAuthorized';
 import useIsCheckingAuthentication from '../hooks/useIsCheckingAuthentication';
 import useIsUnauthorized from '../hooks/useIsUnauthorized';
@@ -20,16 +17,7 @@ const AuthorizedStack =
       Home: {
         screen: HomeScreen,
         options: {
-          header: () => {
-            const { logout } = useContext(AuthenticationContext);
-            return (
-              <CustomHeader
-                title="Home"
-                RightIcon={LogOut}
-                onRightIconPress={logout}
-              />
-            );
-          },
+          header: () => <HomeHeader />,
         },
       },
     },

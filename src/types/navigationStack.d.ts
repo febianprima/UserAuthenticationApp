@@ -5,7 +5,7 @@ declare namespace NavigationStack {
 
   type UnauthorizedStackParamList = {
     Login: undefined;
-    Register: undefined;
+    Register: RegisterNavigationParams;
   };
 
   type RootStackParamList = {
@@ -13,6 +13,14 @@ declare namespace NavigationStack {
     AuthorizedStack: undefined;
     UnauthorizedStack: undefined;
   };
+
+  type RegisterNavigationParams = {
+    emailAddress?: string;
+  };
+
+  type RegisterRouteProp = import('@react-navigation/native').RouteProp<{
+    Register: RegisterNavigationParams;
+  }>;
 
   type AuthorizedStackNavigation =
     import('@react-navigation/native-stack').NativeStackNavigationProp<AuthorizedStackParamList>;

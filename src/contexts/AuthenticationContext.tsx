@@ -3,6 +3,7 @@ import React, {
   PropsWithChildren,
   useCallback,
   useEffect,
+  useRef,
   useState,
 } from 'react';
 import {
@@ -10,6 +11,7 @@ import {
   setAuthenticationState,
 } from '../utils/authenticationStateHandler';
 import getUserData from '../utils/getUserData';
+import users from '../constants/users.json';
 
 export const AuthenticationContext = createContext<{
   isAuthorized: boolean;
@@ -35,10 +37,12 @@ const AuthenticationProvider = ({ children }: PropsWithChildren) => {
     'password'
   > | null>(null);
 
+  const usersRef = useRef<Authentication.User[]>(users);
+
   const login = async (formValue: Authentication.LoginForm) => {
     const { emailAddress } = formValue;
 
-    const userData = getUserData(emailAddress);
+    const userData = getUserData(emailAddress, usersRef.current);
 
     if (!userData) {
       return;
@@ -54,11 +58,17 @@ const AuthenticationProvider = ({ children }: PropsWithChildren) => {
   };
 
   const register = (formValue: Authentication.RegisterForm) => {
-    const { name, emailAddress } = formValue;
+    const { name, emailAddress, password } = formValue;
 
     setUser({
       name,
       emailAddress,
+    });
+
+    usersRef.current.push({
+      name,
+      emailAddress,
+      password,
     });
 
     setIsAuthorized(true);

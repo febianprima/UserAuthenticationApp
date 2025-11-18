@@ -54,11 +54,13 @@ const TextInputComponent = (props: ITextInputProps) => {
         placeholder={placeholder}
         style={styles.input}
         onChangeText={onChangeText}
+        defaultValue={formRef.current[textContentType!]}
         selectionColor={textColor}
         placeholderTextColor={textColor}
         cursorColor={textColor}
         textContentType={textContentType}
         secureTextEntry={textContentType === 'password' && !isPasswordVisible}
+        autoCapitalize={'none'}
       />
       {textContentType === 'password' && (
         <Pressable style={styles.rightIcon} onPress={togglePasswordVisibility}>
