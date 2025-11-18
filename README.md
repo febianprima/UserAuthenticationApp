@@ -2,6 +2,10 @@
 
 A React Native mobile application demonstrating user authentication with login, registration, and session management features. Built with TypeScript and React Navigation.
 
+## Product Demo
+
+https://github.com/user-attachments/assets/e30e2ca7-dc55-4ca7-9c44-4798c59b4428
+
 ## Features
 
 ### 🔐 Authentication Features
