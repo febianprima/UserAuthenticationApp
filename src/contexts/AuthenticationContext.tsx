@@ -8,8 +8,9 @@ import React, {
 } from 'react';
 import users from '../constants/users.json';
 import {
-  getAuthenticationState,
-  setAuthenticationState,
+  getCachedUser,
+  cacheUser,
+  clearCacheUser,
 } from '../utils/authenticationStateHandler';
 import getUserData from '../utils/getUserData';
 
@@ -54,38 +55,40 @@ const AuthenticationProvider = ({ children }: PropsWithChildren) => {
     });
 
     setIsAuthorized(true);
-    setAuthenticationState('authorized');
+    cacheUser(userData);
   };
 
   const register = (formValue: Authentication.RegisterForm) => {
-    const { name, emailAddress, password } = formValue;
+    const { name, emailAddress } = formValue;
 
     setUser({
       name,
       emailAddress,
     });
 
-    usersRef.current.push({
-      name,
-      emailAddress,
-      password,
-    });
+    usersRef.current.push(formValue);
 
     setIsAuthorized(true);
-    setAuthenticationState('authorized');
+    cacheUser(formValue);
   };
 
   const logout = () => {
     setUser(null);
     setIsAuthorized(false);
-    setAuthenticationState('unauthorized');
+    clearCacheUser();
   };
 
   const hasAuthorizedChecker = useCallback(async () => {
-    const isPreviouslyAuthorized = await getAuthenticationState();
+    const cachedUser = await getCachedUser();
+
+    setIsAuthorized(cachedUser !== null || isAuthorized);
+
+    if (cachedUser) {
+      setUser(cachedUser);
+      usersRef.current.push(cachedUser);
+    }
 
     setHasFinishChecked(true);
-    setIsAuthorized(isPreviouslyAuthorized === 'authorized' || isAuthorized);
   }, [isAuthorized]);
 
   useEffect(() => {

@@ -1,9 +1,4 @@
 declare namespace Authentication {
-  enum State {
-    Authorized = 'authorized',
-    Unauthorized = 'unauthorized',
-  }
-
   type LoginForm = {
     emailAddress: string;
     password: string;

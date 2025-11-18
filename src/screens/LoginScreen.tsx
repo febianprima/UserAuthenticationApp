@@ -73,7 +73,11 @@ const LoginScreen = () => {
                 User not found or password is incorrect
               </Text>
             </View>
-            <Button onPress={() => setShowModal(false)} label="Close" type='secondary' />
+            <Button
+              onPress={() => setShowModal(false)}
+              label="Close"
+              type="secondary"
+            />
           </View>
         </View>
       </Modal>
