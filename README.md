@@ -1,97 +1,239 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# User Authentication App
 
-# Getting Started
+A React Native mobile application demonstrating user authentication with login, registration, and session management features. Built with TypeScript and React Navigation.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Features
 
-## Step 1: Start Metro
+### 🔐 Authentication Features
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+- **User Login**: Secure login with email and password validation
+- **User Registration**: Create new accounts with name, email, and password
+- **Session Persistence**: Automatic session restoration using AsyncStorage
+- **Logout Functionality**: Secure logout that clears user session
+- **Splash Screen**: Loading screen while checking authentication state
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+### 📱 User Interface
 
-```sh
-# Using npm
+- **Modern UI Design**: Clean and intuitive user interface
+- **Form Validation**: Real-time input validation with error messages
+  - Email format validation
+  - Password strength requirements (minimum 6 characters, uppercase, lowercase, number, and special character)
+- **Password Visibility Toggle**: Show/hide password functionality
+- **Error Handling**: User-friendly error modals for invalid credentials
+- **Safe Area Support**: Proper handling of device safe areas (notches, status bars)
+
+### 🧭 Navigation
+
+- **Conditional Navigation**: Dynamic navigation based on authentication state
+  - Unauthorized users → Login/Register screens
+  - Authorized users → Home screen
+- **Stack Navigation**: Native stack navigation for smooth transitions
+- **Navigation Guards**: Automatic redirection based on authentication status
+
+### 💾 Data Management
+
+- **Local Storage**: User data persistence using AsyncStorage
+- **In-Memory User Store**: Runtime user management with JSON-based storage
+- **User Context**: Global authentication state management using React Context
+
+## Tech Stack
+
+- **React Native** 0.82.1
+- **TypeScript** 5.8.3
+- **React Navigation** 7.x (Native Stack Navigator)
+- **AsyncStorage** - For local data persistence
+- **Lucide React Native** - Icon library
+- **React Native Safe Area Context** - Safe area handling
+- **React Native Screens** - Native screen components
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- **Node.js** >= 20
+- **npm** or **yarn**
+- **React Native development environment** set up:
+  - For iOS: Xcode (macOS only), CocoaPods
+  - For Android: Android Studio, Android SDK
+- **Ruby** (for CocoaPods on iOS)
+
+For detailed environment setup, refer to the [React Native Environment Setup Guide](https://reactnative.dev/docs/set-up-your-environment).
+
+## Installation
+
+1. **Clone the repository** (if applicable) or navigate to the project directory:
+   ```bash
+   cd UserAuthenticationApp
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. **Install iOS dependencies** (iOS only):
+   ```bash
+   # Install Ruby bundler dependencies
+   bundle install
+   
+   # Install CocoaPods dependencies
+   cd ios && bundle exec pod install && cd ..
+   # or use the npm script
+   npm run ios-install
+   ```
+
+## Running the App
+
+### Start Metro Bundler
+
+First, start the Metro bundler in one terminal:
+
+```bash
 npm start
-
-# OR using Yarn
+# or
 yarn start
 ```
 
-## Step 2: Build and run your app
+### Run on iOS
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+Open a new terminal and run:
 
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
+```bash
 npm run ios
-
-# OR using Yarn
+# or
 yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+**Note**: Make sure you've installed CocoaPods dependencies before running on iOS for the first time.
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+### Run on Android
 
-## Step 3: Modify your app
+Open a new terminal and run:
 
-Now that you have successfully run the app, let's make changes!
+```bash
+npm run android
+# or
+yarn android
+```
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+**Note**: Make sure you have an Android emulator running or a physical device connected via USB with USB debugging enabled.
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+## Project Structure
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+```
+src/
+├── components/          # Reusable UI components
+│   ├── Button.tsx
+│   ├── ContentContainer.tsx
+│   ├── CustomHeader.tsx
+│   ├── HomeHeader.tsx
+│   ├── PasswordInputRightIcon.tsx
+│   └── TextInput.tsx
+├── constants/           # App constants
+│   ├── colors.ts
+│   ├── navigationConstants.ts
+│   └── users.json       # Pre-defined user data
+├── contexts/            # React Context providers
+│   └── AuthenticationContext.tsx
+├── hooks/               # Custom React hooks
+│   ├── useIsAuthorized.ts
+│   ├── useIsCheckingAuthentication.ts
+│   └── useIsUnauthorized.ts
+├── navigation/          # Navigation configuration
+│   └── RootStack.tsx
+├── screens/             # Screen components
+│   ├── HomeScreen.tsx
+│   ├── LoginScreen.tsx
+│   ├── RegisterScreen.tsx
+│   └── SplashScreen.tsx
+├── types/               # TypeScript type definitions
+│   ├── authentication.d.ts
+│   └── navigationStack.d.ts
+├── utils/               # Utility functions
+│   ├── authenticationStateHandler.ts
+│   ├── getUserData.ts
+│   └── validateInput.ts
+└── AuthenticationApp.tsx # Root component
+```
 
-## Congratulations! :tada:
+## Key Features Explained
 
-You've successfully run and modified your React Native App. :partying_face:
+### Authentication Flow
 
-### Now what?
+1. **App Launch**: The app checks for cached user data in AsyncStorage
+2. **Splash Screen**: Displays while authentication state is being checked
+3. **Navigation Decision**:
+   - If user is authenticated → Navigate to Home screen
+   - If user is not authenticated → Navigate to Login screen
+4. **Login/Register**: Users can authenticate or create new accounts
+5. **Session Persistence**: User session is saved and restored on app restart
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+### Input Validation
 
-# Troubleshooting
+The app includes comprehensive input validation:
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+- **Email**: Validates email format using regex pattern
+- **Password**: 
+  - Minimum 6 characters
+  - At least one uppercase letter
+  - At least one lowercase letter
+  - At least one number
+  - At least one special character (@$!%*?&)
+- **Real-time Feedback**: Validation errors appear as users type
 
-# Learn More
+### Pre-defined Users
 
-To learn more about React Native, take a look at the following resources:
+The app includes 10 pre-defined users in `src/constants/users.json` for testing purposes. You can use any of these credentials to log in:
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+- Example: `john.doe@example.com` / `Password123!`
+
+## Available Scripts
+
+- `npm start` - Start Metro bundler
+- `npm run android` - Run on Android
+- `npm run ios` - Run on iOS
+- `npm run ios-install` - Install iOS CocoaPods dependencies
+- `npm test` - Run tests
+- `npm run lint` - Run ESLint
+
+## Development
+
+### Hot Reload
+
+The app supports Fast Refresh. When you save changes to your code:
+- The app will automatically update with your changes
+- State is preserved during most updates
+
+### Manual Reload
+
+- **Android**: Press `R` twice or `Ctrl+M` (Windows/Linux) / `Cmd+M` (macOS) → Select "Reload"
+- **iOS**: Press `R` in the iOS Simulator
+
+## Troubleshooting
+
+### iOS Issues
+
+- **CocoaPods errors**: Run `cd ios && bundle exec pod install && cd ..`
+- **Build errors**: Clean build folder in Xcode (Product → Clean Build Folder)
+
+### Android Issues
+
+- **Gradle errors**: Run `cd android && ./gradlew clean && cd ..`
+- **Metro bundler issues**: Clear cache with `npm start -- --reset-cache`
+
+### General Issues
+
+- **Module not found**: Delete `node_modules` and reinstall dependencies
+- **Metro bundler cache**: Clear cache with `npm start -- --reset-cache`
+
+## Learn More
+
+- [React Native Documentation](https://reactnative.dev)
+- [React Navigation Documentation](https://reactnavigation.org)
+- [TypeScript Documentation](https://www.typescriptlang.org)
+
+## License
+
+This project is for educational and exploration purposes.

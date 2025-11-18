@@ -42,7 +42,7 @@ const validateInput = (props: IInputValidators) => {
 const emailValidator = (value: string) => {
   if (!value) return 'empty';
 
-  const isValid = value.match(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/);
+  const isValid = value.toLowerCase().match(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/);
   return isValid ? 'valid' : 'email_format_invalid';
 };
 
