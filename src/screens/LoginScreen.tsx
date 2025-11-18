@@ -15,13 +15,17 @@ const LoginScreen = () => {
 
   const { login } = useContext(AuthenticationContext);
 
-  const formRef = useRef<Record<string, string>>({
+  const formRef = useRef<Authentication.LoginForm>({
     emailAddress: '',
     password: '',
   });
 
   const handleRegister = () => {
     navigate('Register');
+  };
+
+  const handleLogin = () => {
+    login(formRef.current);
   };
 
   return (
@@ -48,7 +52,7 @@ const LoginScreen = () => {
       <View style={styles.buttonsContainer}>
         <Text style={styles.attentiveText}>Don't have an account?</Text>
         <Button onPress={handleRegister} label="Register" type="secondaryAlt" />
-        <Button onPress={login} label="Login" />
+        <Button onPress={handleLogin} label="Login" />
       </View>
     </SafeAreaView>
   );

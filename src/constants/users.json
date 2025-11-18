@@ -1,0 +1,52 @@
+[
+  {
+    "name": "John Doe",
+    "emailAddress": "john.doe@example.com",
+    "password": "Password123!"
+  },
+  {
+    "name": "Jane Smith",
+    "emailAddress": "jane.smith@example.com",
+    "password": "SecurePass456@"
+  },
+  {
+    "name": "Michael Johnson",
+    "emailAddress": "michael.johnson@example.com",
+    "password": "MyPass789#"
+  },
+  {
+    "name": "Emily Davis",
+    "emailAddress": "emily.davis@example.com",
+    "password": "Emily2024$"
+  },
+  {
+    "name": "David Wilson",
+    "emailAddress": "david.wilson@example.com",
+    "password": "DavidPass!2024"
+  },
+  {
+    "name": "Sarah Brown",
+    "emailAddress": "sarah.brown@example.com",
+    "password": "Sarah123@Pass"
+  },
+  {
+    "name": "Robert Taylor",
+    "emailAddress": "robert.taylor@example.com",
+    "password": "Rob2024#Secure"
+  },
+  {
+    "name": "Lisa Anderson",
+    "emailAddress": "lisa.anderson@example.com",
+    "password": "LisaPass!456"
+  },
+  {
+    "name": "James Martinez",
+    "emailAddress": "james.martinez@example.com",
+    "password": "James789$Pass"
+  },
+  {
+    "name": "Maria Garcia",
+    "emailAddress": "maria.garcia@example.com",
+    "password": "Maria2024@Pass"
+  }
+]

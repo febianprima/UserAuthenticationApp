@@ -14,11 +14,15 @@ const RegisterScreen = () => {
     useNavigation<NavigationStack.UnauthorizedStackNavigation>();
   const { register } = useContext(AuthenticationContext);
 
-  const formRef = useRef<Record<string, string>>({
+  const formRef = useRef<Authentication.RegisterForm>({
     name: '',
     emailAddress: '',
     password: '',
   });
+
+  const handleRegister = () => {
+    register(formRef.current);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -55,7 +59,7 @@ const RegisterScreen = () => {
           label="Back to login"
           type="secondaryAlt"
         />
-        <Button onPress={register} label="Register" />
+        <Button onPress={handleRegister} label="Register" />
       </View>
     </SafeAreaView>
   );

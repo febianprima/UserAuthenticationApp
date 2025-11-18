@@ -1,16 +1,21 @@
 import { SignatureIcon } from 'lucide-react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import colors from '../constants/colors';
+import { AuthenticationContext } from '../contexts/AuthenticationContext';
 
 const HomeScreen = () => {
+  const { user } = useContext(AuthenticationContext);
+
   return (
     <View style={styles.container}>
       <SignatureIcon size={100} color={colors.lightBlue} />
-      <Text style={styles.title}>It's good to see you again, A!</Text>
+      <Text style={styles.title}>
+        It's good to see you again, {user?.name}!
+      </Text>
       <Text style={styles.subtitle}>
-        I've sent a verification code to abc@mail.com
+        I've sent a verification code to {user?.emailAddress}
       </Text>
     </View>
   );

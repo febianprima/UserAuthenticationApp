@@ -9,30 +9,64 @@ import {
   getAuthenticationState,
   setAuthenticationState,
 } from '../utils/authenticationStateHandler';
+import getUserData from '../utils/getUserData';
 
-export const AuthenticationContext = createContext({
+export const AuthenticationContext = createContext<{
+  isAuthorized: boolean;
+  hasFinishChecked: boolean;
+  login: (formValue: Authentication.LoginForm) => void;
+  logout: () => void;
+  register: (formValue: Authentication.RegisterForm) => void;
+  user: Omit<Authentication.User, 'password'> | null;
+}>({
   isAuthorized: false,
   hasFinishChecked: false,
   login: () => {},
   logout: () => {},
   register: () => {},
+  user: null,
 });
 
 const AuthenticationProvider = ({ children }: PropsWithChildren) => {
   const [hasFinishChecked, setHasFinishChecked] = useState(false);
   const [isAuthorized, setIsAuthorized] = useState(false);
+  const [user, setUser] = useState<Omit<
+    Authentication.User,
+    'password'
+  > | null>(null);
 
-  const login = async () => {
+  const login = async (formValue: Authentication.LoginForm) => {
+    const { emailAddress } = formValue;
+
+    const userData = getUserData(emailAddress);
+
+    if (!userData) {
+      return;
+    }
+
+    setUser({
+      name: userData.name,
+      emailAddress: userData.emailAddress,
+    });
+
     setIsAuthorized(true);
     setAuthenticationState('authorized');
   };
 
-  const register = async () => {
+  const register = (formValue: Authentication.RegisterForm) => {
+    const { name, emailAddress } = formValue;
+
+    setUser({
+      name,
+      emailAddress,
+    });
+
     setIsAuthorized(true);
     setAuthenticationState('authorized');
   };
 
-  const logout = async () => {
+  const logout = () => {
+    setUser(null);
     setIsAuthorized(false);
     setAuthenticationState('unauthorized');
   };
@@ -54,6 +88,7 @@ const AuthenticationProvider = ({ children }: PropsWithChildren) => {
     login,
     logout,
     register,
+    user,
   };
 
   return (
