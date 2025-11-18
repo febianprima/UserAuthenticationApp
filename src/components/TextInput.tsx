@@ -1,5 +1,4 @@
-import { Eye, EyeOff } from 'lucide-react-native';
-import React, { useState } from 'react';
+import React, { RefObject, useState } from 'react';
 import {
   Pressable,
   StyleSheet,
@@ -10,8 +9,11 @@ import {
 } from 'react-native';
 
 import colors from '../constants/colors';
+import validateInput from '../utils/validateInput';
+import PasswordInputRightIcon from './PasswordInputRightIcon';
 
 interface ITextInputProps {
+  formRef: RefObject<Record<string, string>>;
   label: string;
   placeholder: string;
   type: 'primary' | 'alt';
@@ -20,22 +22,29 @@ interface ITextInputProps {
 
 const TextInputComponent = (props: ITextInputProps) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [validatorResult, setValidatorResult] = useState<string>('');
 
-  const { label, placeholder, type = 'primary', textContentType } = props;
+  const {
+    formRef,
+    label,
+    placeholder,
+    type = 'primary',
+    textContentType,
+  } = props;
+
   const textColor = type === 'primary' ? colors.black : colors.white;
 
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(prev => !prev);
   };
 
-  const RightIcon = () => {
-    if (isPasswordVisible) {
-      return (
-        <EyeOff size={20} color={textColor} />
-      );
-    }
+  const onChangeText = (text: string) => {
+    const result = validateInput({ type: textContentType, value: text });
+    setValidatorResult(result);
 
-    return <Eye size={20} color={textColor} />;
+    if (textContentType) {
+      formRef.current[textContentType] = text;
+    }
   };
 
   return (
@@ -44,8 +53,7 @@ const TextInputComponent = (props: ITextInputProps) => {
       <TextInput
         placeholder={placeholder}
         style={styles.input}
-        // onChangeText={onChangeText}
-        // value={value}
+        onChangeText={onChangeText}
         selectionColor={textColor}
         placeholderTextColor={textColor}
         cursorColor={textColor}
@@ -54,8 +62,14 @@ const TextInputComponent = (props: ITextInputProps) => {
       />
       {textContentType === 'password' && (
         <Pressable style={styles.rightIcon} onPress={togglePasswordVisibility}>
-          <RightIcon />
+          <PasswordInputRightIcon
+            isPasswordVisible={isPasswordVisible}
+            type={type}
+          />
         </Pressable>
+      )}
+      {validatorResult && (
+        <Text style={styles.errorText}>{validatorResult}</Text>
       )}
     </View>
   );
@@ -87,6 +101,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 18,
     right: 16,
+  },
+  errorText: {
+    color: colors.error,
+    fontSize: 14,
+    fontWeight: '500',
+    marginTop: 4,
+    paddingLeft: 18,
   },
 });
 

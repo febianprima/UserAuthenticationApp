@@ -9,7 +9,9 @@ const HomeScreen = () => {
     <View style={styles.container}>
       <SignatureIcon size={100} color={colors.lightBlue} />
       <Text style={styles.title}>It's good to see you again, A!</Text>
-      <Text style={styles.subtitle}>I've sent a verification code to abc@mail.com</Text>
+      <Text style={styles.subtitle}>
+        I've sent a verification code to abc@mail.com
+      </Text>
     </View>
   );
 };

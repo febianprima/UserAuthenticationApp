@@ -1,19 +1,24 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import Button from '../components/Button';
-import { AuthenticationContext } from '../contexts/AuthenticationContext';
-import TextInputComponent from '../components/TextInput';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Button from '../components/Button';
 import ContentContainer from '../components/ContentContainer';
+import TextInputComponent from '../components/TextInput';
 import colors from '../constants/colors';
+import { AuthenticationContext } from '../contexts/AuthenticationContext';
 
 const LoginScreen = () => {
   const { navigate } =
     useNavigation<NavigationStack.UnauthorizedStackNavigation>();
 
   const { login } = useContext(AuthenticationContext);
+
+  const formRef = useRef<Record<string, string>>({
+    emailAddress: '',
+    password: '',
+  });
 
   const handleRegister = () => {
     navigate('Register');
@@ -26,12 +31,14 @@ const LoginScreen = () => {
         description="Sign in to your account to continue"
       >
         <TextInputComponent
+          formRef={formRef}
           label="Email"
           placeholder="Enter your email"
           type="alt"
           textContentType="emailAddress"
         />
         <TextInputComponent
+          formRef={formRef}
           label="Password"
           placeholder="Enter your password"
           type="alt"
